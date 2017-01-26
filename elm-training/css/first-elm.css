@@ -1,0 +1,47 @@
+h1 {
+  position: relative;
+  bottom: 20px;
+  text-align: center;
+  padding: 40px;
+  border-bottom: 2px solid red;
+  background-color: lightblue;
+}
+
+h2 {
+  text-align: center;
+}
+
+div.buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+button {
+  text-align: center;
+  padding: 10px;
+  width: 135px;
+  margin: 10px;
+  box-shadow: 3px 4px 5px rgba(0, 0, 0, 0.4);
+  transition: all ease-in-out 0.5s;
+}
+
+button:hover {
+  box-shadow: 3px 10px 5px -5px rgba(0, 0, 0, 0.2);
+  transform: scale(1.06);
+  cursor: pointer;
+}
+
+button:focus {
+  outline: none;
+}
+
+button.Increment {
+  background-color: rgba(50, 205, 50, 0.6);
+  border-bottom: 1px solid red;
+}
+
+button.Decrement {
+  background-color: rgba(255, 0, 0, 0.6);
+  border-bottom: 1px solid limegreen;
+}

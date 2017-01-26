@@ -1,0 +1,24 @@
+{
+  "name": "elm-training",
+  "version": "1.0.0",
+  "description": "This is a repo built to study elm and the architecture involved, along with functional programming.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/InceptionCode/elm-training.git"
+  },
+  "keywords": [
+    "Node",
+    "Elm",
+    "JS"
+  ],
+  "author": "Darrell Washington",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/InceptionCode/elm-training/issues"
+  },
+  "homepage": "https://github.com/InceptionCode/elm-training#readme"
+}
