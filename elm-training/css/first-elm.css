@@ -45,3 +45,52 @@ button.Decrement {
   background-color: rgba(255, 0, 0, 0.6);
   border-bottom: 1px solid limegreen;
 }
+
+.input-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.input-section input,
+.form-section input {
+  width: 400px;
+  padding: 15px;
+  font-size: 18px;
+  border: none;
+  border-bottom: 2px solid limegreen;
+}
+
+.input-section input {
+  margin-left: 35%;
+}
+
+.input-section input:focus,
+.form-section input:focus {
+  outline: none;
+}
+
+.input-section p {
+  text-align: center;
+}
+
+.form-section form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 500px;
+  margin: 10px auto;
+}
+
+.form-section button {
+  margin-left: 43%;
+}
+
+.verification-message {
+  text-align: center;
+  font-size: 22px;
+}
+
+.dice-section button {
+  margin-left: 45%;
+}

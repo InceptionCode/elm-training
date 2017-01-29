@@ -38,15 +38,12 @@ var _user$project$Main$formVerification = function (model) {
 var _user$project$Main$subscriptions = function (model) {
 	return _elm_lang$core$Platform_Sub$none;
 };
+var _user$project$Main$initModel = {clickAmount: 0, userInput: '', name: '', password: '', confirmPassword: '', confirmAge: '', verify: 'No', dieFace: 1};
+var _user$project$Main$init = {ctor: '_Tuple2', _0: _user$project$Main$initModel, _1: _elm_lang$core$Platform_Cmd$none};
 var _user$project$Main$Model = F8(
 	function (a, b, c, d, e, f, g, h) {
 		return {clickAmount: a, userInput: b, name: c, password: d, confirmPassword: e, confirmAge: f, verify: g, dieFace: h};
 	});
-var _user$project$Main$init = {
-	ctor: '_Tuple2',
-	_0: A8(_user$project$Main$Model, 0, '', '', '', '', '', 'No', 1),
-	_1: _elm_lang$core$Platform_Cmd$none
-};
 var _user$project$Main$NewFace = function (a) {
 	return {ctor: 'NewFace', _0: a};
 };
