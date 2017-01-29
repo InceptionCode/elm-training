@@ -33,16 +33,7 @@ type alias Model =
     }
 
 
-initModel :
-    { clickAmount : Int
-    , userInput : String
-    , name : String
-    , password : String
-    , confirmPassword : String
-    , confirmAge : String
-    , verify : String
-    , dieFace : Int
-    }
+initModel : Model
 initModel =
     { clickAmount = 0
     , userInput = ""
@@ -124,7 +115,7 @@ formDisplay =
 -- Age issue > show validation message.
 
 
-passwordValidation : { a | confirmPassword : String, password : String } -> Maybe { a | confirmPassword : String, password : String }
+passwordValidation : Model -> Maybe Model
 passwordValidation model =
     if length model.password >= 8 && model.password == model.confirmPassword then
         Maybe.Just model
@@ -132,7 +123,11 @@ passwordValidation model =
         Maybe.Nothing
 
 
-ageValidation : Maybe { a | confirmAge : String } -> { color : String, message : String, display : String }
+type alias Styles =
+    { color : String, message : String, display : String }
+
+
+ageValidation : Maybe Model -> Styles
 ageValidation model =
     let
         styles =
@@ -161,7 +156,7 @@ ageValidation model =
                     }
 
 
-showValidationMessage : { a | verify : String } -> { color : String, message : String, display : String } -> Html msg
+showValidationMessage : Model -> Styles -> Html msg
 showValidationMessage model { color, message, display } =
     if model.verify == "Yes" then
         p
@@ -177,7 +172,7 @@ showValidationMessage model { color, message, display } =
             [ text message ]
 
 
-formVerification : { a | password : String, confirmPassword : String, confirmAge : String, verify : String } -> Html msg
+formVerification : Model -> Html msg
 formVerification model =
     (passwordValidation >> ageValidation) model
         |> showValidationMessage model
