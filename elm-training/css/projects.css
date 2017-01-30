@@ -1,0 +1,40 @@
+body {
+  text-align: center;
+}
+
+.weight-app p {
+  font-size: 20px;
+}
+
+.weight-app input {
+  padding: 15px;
+  border: none;
+  border-bottom: 2px solid limegreen;
+  font-size: 16px;
+  margin: 5px;
+}
+
+.weight-app input:focus {
+  outline: none;
+}
+
+.weight-app button {
+  background: rgba(255, 0, 0, 0.5);
+  border: none;
+  width: 140px;
+  padding: 10px;
+  margin-left: 5px;
+  transition: all ease-in-out 0.3s;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.weight-app button:hover {
+  cursor: pointer;
+  box-shadow: 2px 14px 5px -10px rgba(0, 0, 0, 0.3);
+  transform: scale(1.08);
+}
+
+.weight-app button:focus {
+  outline: none;
+}
