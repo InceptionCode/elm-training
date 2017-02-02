@@ -1,0 +1,151 @@
+body {
+    background-color: lightgray;
+}
+.scoreboard {
+    background-color: white;
+    margin: 50px auto;
+    width: 960px;
+    padding: 40px;
+    border-radius: 3px;
+}
+.scoreboard h1 {
+    background-color: #f16363;
+    font-family: Helvetica, sans-serif;
+    text-align: center;
+    padding: 10px;
+    border-bottom: 3px solid black;
+    border-radius: 4px;
+}
+
+.player-section,
+.play-section {
+    font-family: Helvetica, sans-serif;
+    font-size: 24px;
+    font-weight: bold;
+}
+.player-section header,
+.play-section header{
+    display: flex;
+    justify-content: space-between;
+}
+
+.player-section footer {
+    display: flex;
+    justify-content: flex-end; 
+}
+.player-section footer div {
+    margin: 5px;
+}
+.player-section li,
+.play-section li {
+    display: flex;
+    width: 100%;
+    margin: 10px 0;
+}
+.player-section button {
+    float: right;
+    width: 85px;
+    padding: 5px;
+    border: none;
+    margin: 0 10px;
+    transition: transform .3s ease-in-out;
+}
+.player-section button:hover {
+    cursor: pointer;
+    transform: scale(1.05);
+    box-shadow: 2px 5px 5px -4px rgba(0, 0, 0, 0.4);
+}
+.player-section button:focus {
+    outline: none;
+}
+
+.player-list,
+.play-list {
+    list-style: none;
+    font-size: 18px;
+}
+.player-list .fa,
+.play-list .fa {
+    float: left;
+    font-size: 1.5em;
+    margin-right: 10px;
+    transition: transform .3s ease-in-out;
+}
+.player-list .fa:hover,
+.play-list .fa:hover {
+    cursor: pointer;
+    transform: scale(1.03);
+    box-shadow: 2px 4px 5px -2px rgba(0, 0, 0, 0.35);
+}
+
+.player-list div:nth-child(2) {
+    margin: 0 4% 10px 0;
+    width: 500px;
+}
+.player-list div:nth-child(5) {
+    margin-left: 95px;
+}
+
+.editing {
+    background-color: #2196f3;
+
+}
+.player-list div.editing {
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.play-section li div:nth-child(3) {
+    margin-left: 40%;
+}
+.play-list {
+    padding: 0;
+}
+.play-section li div:nth-child(2){
+    width: 500px;
+}
+.play-list .fa {
+    color: red;
+}
+
+form {
+    padding: 10px;
+    margin: 15px 0;
+}
+form input {
+    padding: 10px;
+    width: 265px;
+    margin-right: 10px;
+    font-size: 16px;
+    border: none;
+    border-bottom: 2px solid limegreen;
+}
+
+form input:focus {
+    outline: none;
+}
+
+form button {
+    background-color: #54b319;
+    padding: 10px;
+    width: 150px;
+    margin-right: 10px;
+    border: none;
+    box-shadow: 2px 8px 5px rgba(0, 0, 0, 0.4);
+    font-size: 16px;
+    transition: transform .3s ease-in-out;
+}
+form button[type = "button"] {
+    background-color: #f16363;
+}
+form button:hover {
+    cursor: pointer;
+    box-shadow: 2px 14px 6px -5px rgba(0, 0, 0, 0.3);
+    transform: scale(1.05);
+}
+form button:focus {
+    outline: none;
+}
+.player-section button {
+    float: right;
+}

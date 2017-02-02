@@ -1,177 +1,134 @@
-var _user$project$Main$formVerification = function (model) {
-	var _p0 = _elm_lang$core$Native_Utils.eq(model.verify, 'No') ? {ctor: '_Tuple3', _0: '', _1: '', _2: 'none'} : ((_elm_lang$core$Native_Utils.cmp(
-		_elm_lang$core$String$length(model.password),
-		8) < 0) ? {ctor: '_Tuple3', _0: 'red', _1: 'The password must be at least 8 characters long', _2: 'block'} : ((_elm_lang$core$Native_Utils.eq(model.password, model.confirmPassword) && ((_elm_lang$core$Native_Utils.cmp(
-		_elm_lang$core$String$length(model.password),
-		8) > -1) && A2(_elm_lang$core$String$all, _elm_lang$core$Char$isDigit, model.confirmAge))) ? {ctor: '_Tuple3', _0: 'limegreen', _1: 'You are clear to go', _2: 'block'} : (_elm_lang$core$Native_Utils.eq(
-		A2(_elm_lang$core$String$all, _elm_lang$core$Char$isDigit, model.confirmAge),
-		false) ? {ctor: '_Tuple3', _0: 'red', _1: 'That\'s not a valid age', _2: 'block'} : {ctor: '_Tuple3', _0: 'red', _1: 'The passwords don\'t match try again', _2: 'block'})));
-	var color = _p0._0;
-	var message = _p0._1;
-	var display = _p0._2;
-	return A2(
-		_elm_lang$html$Html$p,
-		{
-			ctor: '::',
-			_0: _elm_lang$html$Html_Attributes$class('verification-message'),
-			_1: {
-				ctor: '::',
-				_0: _elm_lang$html$Html_Attributes$style(
-					{
-						ctor: '::',
-						_0: {ctor: '_Tuple2', _0: 'color', _1: color},
-						_1: {
-							ctor: '::',
-							_0: {ctor: '_Tuple2', _0: 'display', _1: display},
-							_1: {ctor: '[]'}
-						}
-					}),
-				_1: {ctor: '[]'}
-			}
-		},
-		{
-			ctor: '::',
-			_0: _elm_lang$html$Html$text(message),
-			_1: {ctor: '[]'}
-		});
-};
-var _user$project$Main$subscriptions = function (model) {
-	return _elm_lang$core$Platform_Sub$none;
-};
-var _user$project$Main$initModel = {clickAmount: 0, userInput: '', name: '', password: '', confirmPassword: '', confirmAge: '', verify: 'No', dieFace: 1};
-var _user$project$Main$init = {ctor: '_Tuple2', _0: _user$project$Main$initModel, _1: _elm_lang$core$Platform_Cmd$none};
-var _user$project$Main$Model = F8(
-	function (a, b, c, d, e, f, g, h) {
-		return {clickAmount: a, userInput: b, name: c, password: d, confirmPassword: e, confirmAge: f, verify: g, dieFace: h};
+var _user$project$Main$checkPlay = F3(
+	function (model, id, play) {
+		return _elm_lang$core$Native_Utils.eq(play.playerId, id) ? _elm_lang$core$Native_Utils.update(
+			play,
+			{name: model.playerName}) : play;
 	});
-var _user$project$Main$NewFace = function (a) {
-	return {ctor: 'NewFace', _0: a};
+var _user$project$Main$checkPlayer = F3(
+	function (model, id, player) {
+		return _elm_lang$core$Native_Utils.eq(player.id, id) ? _elm_lang$core$Native_Utils.update(
+			player,
+			{name: model.playerName}) : player;
+	});
+var _user$project$Main$edit = F2(
+	function (model, id) {
+		var newPlays = A2(
+			_elm_lang$core$List$map,
+			A2(_user$project$Main$checkPlay, model, id),
+			model.plays);
+		var newPlayers = A2(
+			_elm_lang$core$List$map,
+			A2(_user$project$Main$checkPlayer, model, id),
+			model.players);
+		return _elm_lang$core$Native_Utils.update(
+			model,
+			{players: newPlayers, plays: newPlays, playerName: '', playerId: _elm_lang$core$Maybe$Nothing});
+	});
+var _user$project$Main$initModel = {
+	players: {ctor: '[]'},
+	playerName: '',
+	playerId: _elm_lang$core$Maybe$Nothing,
+	plays: {ctor: '[]'}
+};
+var _user$project$Main$Model = F4(
+	function (a, b, c, d) {
+		return {players: a, playerName: b, playerId: c, plays: d};
+	});
+var _user$project$Main$Player = F3(
+	function (a, b, c) {
+		return {id: a, name: b, points: c};
+	});
+var _user$project$Main$add = function (model) {
+	var player = A3(
+		_user$project$Main$Player,
+		_elm_lang$core$List$length(model.players),
+		model.playerName,
+		0);
+	var newPlayers = {ctor: '::', _0: player, _1: model.players};
+	return _elm_lang$core$Native_Utils.update(
+		model,
+		{players: newPlayers, playerName: ''});
+};
+var _user$project$Main$save = function (model) {
+	var _p0 = model.playerId;
+	if (_p0.ctor === 'Just') {
+		return A2(_user$project$Main$edit, model, _p0._0);
+	} else {
+		return _user$project$Main$add(model);
+	}
 };
 var _user$project$Main$update = F2(
 	function (msg, model) {
 		var _p1 = msg;
 		switch (_p1.ctor) {
-			case 'Increment':
-				return {
-					ctor: '_Tuple2',
-					_0: _elm_lang$core$Native_Utils.update(
-						model,
-						{clickAmount: model.clickAmount + 1}),
-					_1: _elm_lang$core$Platform_Cmd$none
-				};
-			case 'Decrement':
-				return {
-					ctor: '_Tuple2',
-					_0: _elm_lang$core$Native_Utils.update(
-						model,
-						{clickAmount: model.clickAmount - 1}),
-					_1: _elm_lang$core$Platform_Cmd$none
-				};
-			case 'Reset':
-				return {
-					ctor: '_Tuple2',
-					_0: _elm_lang$core$Native_Utils.update(
-						model,
-						{clickAmount: 0}),
-					_1: _elm_lang$core$Platform_Cmd$none
-				};
-			case 'Reverse':
-				return {
-					ctor: '_Tuple2',
-					_0: _elm_lang$core$Native_Utils.update(
-						model,
-						{
-							userInput: _elm_lang$core$String$reverse(_p1._0)
-						}),
-					_1: _elm_lang$core$Platform_Cmd$none
-				};
-			case 'Name':
-				return {
-					ctor: '_Tuple2',
-					_0: _elm_lang$core$Native_Utils.update(
-						model,
-						{name: _p1._0}),
-					_1: _elm_lang$core$Platform_Cmd$none
-				};
-			case 'Password':
-				return {
-					ctor: '_Tuple2',
-					_0: _elm_lang$core$Native_Utils.update(
-						model,
-						{password: _p1._0}),
-					_1: _elm_lang$core$Platform_Cmd$none
-				};
-			case 'ConfirmPassword':
-				return {
-					ctor: '_Tuple2',
-					_0: _elm_lang$core$Native_Utils.update(
-						model,
-						{confirmPassword: _p1._0}),
-					_1: _elm_lang$core$Platform_Cmd$none
-				};
-			case 'ConfirmAge':
-				return {
-					ctor: '_Tuple2',
-					_0: _elm_lang$core$Native_Utils.update(
-						model,
-						{confirmAge: _p1._0}),
-					_1: _elm_lang$core$Platform_Cmd$none
-				};
-			case 'Verify':
-				return {
-					ctor: '_Tuple2',
-					_0: _elm_lang$core$Native_Utils.update(
-						model,
-						{verify: 'Yes'}),
-					_1: _elm_lang$core$Platform_Cmd$none
-				};
-			case 'Roll':
-				return {
-					ctor: '_Tuple2',
-					_0: model,
-					_1: A2(
-						_elm_lang$core$Random$generate,
-						_user$project$Main$NewFace,
-						A2(_elm_lang$core$Random$int, 1, 6))
-				};
+			case 'Input':
+				return _elm_lang$core$Native_Utils.update(
+					model,
+					{playerName: _p1._0});
+			case 'Cancel':
+				return _elm_lang$core$Native_Utils.update(
+					model,
+					{playerName: '', playerId: _elm_lang$core$Maybe$Nothing});
+			case 'Save':
+				return _elm_lang$core$String$isEmpty(model.playerName) ? model : _user$project$Main$save(model);
 			default:
-				return {
-					ctor: '_Tuple2',
-					_0: _elm_lang$core$Native_Utils.update(
-						model,
-						{dieFace: _p1._0}),
-					_1: _elm_lang$core$Platform_Cmd$none
-				};
+				return model;
 		}
 	});
-var _user$project$Main$Roll = {ctor: 'Roll'};
-var _user$project$Main$diceRoller = function (model) {
+var _user$project$Main$Play = F4(
+	function (a, b, c, d) {
+		return {id: a, playerId: b, name: c, points: d};
+	});
+var _user$project$Main$DeletePlay = function (a) {
+	return {ctor: 'DeletePlay', _0: a};
+};
+var _user$project$Main$Cancel = {ctor: 'Cancel'};
+var _user$project$Main$Save = {ctor: 'Save'};
+var _user$project$Main$Input = function (a) {
+	return {ctor: 'Input', _0: a};
+};
+var _user$project$Main$playerForm = function (model) {
 	return A2(
-		_elm_lang$html$Html$div,
+		_elm_lang$html$Html$form,
 		{
 			ctor: '::',
-			_0: _elm_lang$html$Html_Attributes$class('dice-section'),
+			_0: _elm_lang$html$Html_Events$onSubmit(_user$project$Main$Save),
 			_1: {ctor: '[]'}
 		},
 		{
 			ctor: '::',
 			_0: A2(
-				_elm_lang$html$Html$h1,
-				{ctor: '[]'},
+				_elm_lang$html$Html$input,
 				{
 					ctor: '::',
-					_0: _elm_lang$html$Html$text('Watch Elm Roll the Dice'),
-					_1: {ctor: '[]'}
-				}),
+					_0: _elm_lang$html$Html_Attributes$type_('text'),
+					_1: {
+						ctor: '::',
+						_0: _elm_lang$html$Html_Attributes$placeholder('Add/Edit Player . . .'),
+						_1: {
+							ctor: '::',
+							_0: _elm_lang$html$Html_Events$onInput(_user$project$Main$Input),
+							_1: {
+								ctor: '::',
+								_0: _elm_lang$html$Html_Attributes$value(model.playerName),
+								_1: {ctor: '[]'}
+							}
+						}
+					}
+				},
+				{ctor: '[]'}),
 			_1: {
 				ctor: '::',
 				_0: A2(
-					_elm_lang$html$Html$h2,
-					{ctor: '[]'},
+					_elm_lang$html$Html$button,
 					{
 						ctor: '::',
-						_0: _elm_lang$html$Html$text(
-							_elm_lang$core$Basics$toString(model.dieFace)),
+						_0: _elm_lang$html$Html_Attributes$type_('submit'),
+						_1: {ctor: '[]'}
+					},
+					{
+						ctor: '::',
+						_0: _elm_lang$html$Html$text('Save'),
 						_1: {ctor: '[]'}
 					}),
 				_1: {
@@ -180,301 +137,17 @@ var _user$project$Main$diceRoller = function (model) {
 						_elm_lang$html$Html$button,
 						{
 							ctor: '::',
-							_0: _elm_lang$html$Html_Attributes$class('roll-die'),
+							_0: _elm_lang$html$Html_Attributes$type_('button'),
 							_1: {
 								ctor: '::',
-								_0: _elm_lang$html$Html_Events$onClick(_user$project$Main$Roll),
+								_0: _elm_lang$html$Html_Events$onClick(_user$project$Main$Cancel),
 								_1: {ctor: '[]'}
 							}
 						},
 						{
 							ctor: '::',
-							_0: _elm_lang$html$Html$text('Roll'),
+							_0: _elm_lang$html$Html$text('Cancel'),
 							_1: {ctor: '[]'}
-						}),
-					_1: {ctor: '[]'}
-				}
-			}
-		});
-};
-var _user$project$Main$Verify = {ctor: 'Verify'};
-var _user$project$Main$ConfirmAge = function (a) {
-	return {ctor: 'ConfirmAge', _0: a};
-};
-var _user$project$Main$ConfirmPassword = function (a) {
-	return {ctor: 'ConfirmPassword', _0: a};
-};
-var _user$project$Main$Password = function (a) {
-	return {ctor: 'Password', _0: a};
-};
-var _user$project$Main$Name = function (a) {
-	return {ctor: 'Name', _0: a};
-};
-var _user$project$Main$formDisplay = A2(
-	_elm_lang$html$Html$div,
-	{
-		ctor: '::',
-		_0: _elm_lang$html$Html_Attributes$class('form-section'),
-		_1: {ctor: '[]'}
-	},
-	{
-		ctor: '::',
-		_0: A2(
-			_elm_lang$html$Html$h1,
-			{ctor: '[]'},
-			{
-				ctor: '::',
-				_0: _elm_lang$html$Html$text('Elm-Form'),
-				_1: {ctor: '[]'}
-			}),
-		_1: {
-			ctor: '::',
-			_0: A2(
-				_elm_lang$html$Html$form,
-				{ctor: '[]'},
-				{
-					ctor: '::',
-					_0: A2(
-						_elm_lang$html$Html$input,
-						{
-							ctor: '::',
-							_0: _elm_lang$html$Html_Attributes$type_('text'),
-							_1: {
-								ctor: '::',
-								_0: _elm_lang$html$Html_Attributes$placeholder('Name'),
-								_1: {
-									ctor: '::',
-									_0: _elm_lang$html$Html_Events$onInput(_user$project$Main$Name),
-									_1: {ctor: '[]'}
-								}
-							}
-						},
-						{ctor: '[]'}),
-					_1: {
-						ctor: '::',
-						_0: A2(
-							_elm_lang$html$Html$input,
-							{
-								ctor: '::',
-								_0: _elm_lang$html$Html_Attributes$type_('password'),
-								_1: {
-									ctor: '::',
-									_0: _elm_lang$html$Html_Attributes$placeholder('Password'),
-									_1: {
-										ctor: '::',
-										_0: _elm_lang$html$Html_Events$onInput(_user$project$Main$Password),
-										_1: {ctor: '[]'}
-									}
-								}
-							},
-							{ctor: '[]'}),
-						_1: {
-							ctor: '::',
-							_0: A2(
-								_elm_lang$html$Html$input,
-								{
-									ctor: '::',
-									_0: _elm_lang$html$Html_Attributes$type_('password'),
-									_1: {
-										ctor: '::',
-										_0: _elm_lang$html$Html_Attributes$placeholder('Confirm Password'),
-										_1: {
-											ctor: '::',
-											_0: _elm_lang$html$Html_Events$onInput(_user$project$Main$ConfirmPassword),
-											_1: {ctor: '[]'}
-										}
-									}
-								},
-								{ctor: '[]'}),
-							_1: {
-								ctor: '::',
-								_0: A2(
-									_elm_lang$html$Html$input,
-									{
-										ctor: '::',
-										_0: _elm_lang$html$Html_Attributes$type_('text'),
-										_1: {
-											ctor: '::',
-											_0: _elm_lang$html$Html_Attributes$placeholder('Provide your Age'),
-											_1: {
-												ctor: '::',
-												_0: _elm_lang$html$Html_Events$onInput(_user$project$Main$ConfirmAge),
-												_1: {ctor: '[]'}
-											}
-										}
-									},
-									{ctor: '[]'}),
-								_1: {ctor: '[]'}
-							}
-						}
-					}
-				}),
-			_1: {
-				ctor: '::',
-				_0: A2(
-					_elm_lang$html$Html$button,
-					{
-						ctor: '::',
-						_0: _elm_lang$html$Html_Events$onClick(_user$project$Main$Verify),
-						_1: {ctor: '[]'}
-					},
-					{
-						ctor: '::',
-						_0: _elm_lang$html$Html$text('Submit'),
-						_1: {ctor: '[]'}
-					}),
-				_1: {ctor: '[]'}
-			}
-		}
-	});
-var _user$project$Main$Reverse = function (a) {
-	return {ctor: 'Reverse', _0: a};
-};
-var _user$project$Main$trickyInput = function (model) {
-	return A2(
-		_elm_lang$html$Html$div,
-		{
-			ctor: '::',
-			_0: _elm_lang$html$Html_Attributes$class('input-section'),
-			_1: {ctor: '[]'}
-		},
-		{
-			ctor: '::',
-			_0: A2(
-				_elm_lang$html$Html$h1,
-				{ctor: '[]'},
-				{
-					ctor: '::',
-					_0: _elm_lang$html$Html$text('Elm-Input Tricks'),
-					_1: {ctor: '[]'}
-				}),
-			_1: {
-				ctor: '::',
-				_0: A2(
-					_elm_lang$html$Html$input,
-					{
-						ctor: '::',
-						_0: _elm_lang$html$Html_Attributes$placeholder('It\'s going to be reversed'),
-						_1: {
-							ctor: '::',
-							_0: _elm_lang$html$Html_Events$onInput(_user$project$Main$Reverse),
-							_1: {ctor: '[]'}
-						}
-					},
-					{ctor: '[]'}),
-				_1: {
-					ctor: '::',
-					_0: A2(
-						_elm_lang$html$Html$p,
-						{ctor: '[]'},
-						{
-							ctor: '::',
-							_0: _elm_lang$html$Html$text(model.userInput),
-							_1: {ctor: '[]'}
-						}),
-					_1: {ctor: '[]'}
-				}
-			}
-		});
-};
-var _user$project$Main$Reset = {ctor: 'Reset'};
-var _user$project$Main$Decrement = {ctor: 'Decrement'};
-var _user$project$Main$Increment = {ctor: 'Increment'};
-var _user$project$Main$buttonDisplay = function (model) {
-	return A2(
-		_elm_lang$html$Html$div,
-		{
-			ctor: '::',
-			_0: _elm_lang$html$Html_Attributes$class('button-section'),
-			_1: {ctor: '[]'}
-		},
-		{
-			ctor: '::',
-			_0: A2(
-				_elm_lang$html$Html$h1,
-				{ctor: '[]'},
-				{
-					ctor: '::',
-					_0: _elm_lang$html$Html$text('Elm-Button'),
-					_1: {ctor: '[]'}
-				}),
-			_1: {
-				ctor: '::',
-				_0: A2(
-					_elm_lang$html$Html$h2,
-					{ctor: '[]'},
-					{
-						ctor: '::',
-						_0: _elm_lang$html$Html$text(
-							_elm_lang$core$Basics$toString(model.clickAmount)),
-						_1: {ctor: '[]'}
-					}),
-				_1: {
-					ctor: '::',
-					_0: A2(
-						_elm_lang$html$Html$div,
-						{
-							ctor: '::',
-							_0: _elm_lang$html$Html_Attributes$class('buttons'),
-							_1: {ctor: '[]'}
-						},
-						{
-							ctor: '::',
-							_0: A2(
-								_elm_lang$html$Html$button,
-								{
-									ctor: '::',
-									_0: _elm_lang$html$Html_Attributes$class('Increment'),
-									_1: {
-										ctor: '::',
-										_0: _elm_lang$html$Html_Events$onClick(_user$project$Main$Increment),
-										_1: {ctor: '[]'}
-									}
-								},
-								{
-									ctor: '::',
-									_0: _elm_lang$html$Html$text('Increment'),
-									_1: {ctor: '[]'}
-								}),
-							_1: {
-								ctor: '::',
-								_0: A2(
-									_elm_lang$html$Html$button,
-									{
-										ctor: '::',
-										_0: _elm_lang$html$Html_Attributes$class('Decrement'),
-										_1: {
-											ctor: '::',
-											_0: _elm_lang$html$Html_Events$onClick(_user$project$Main$Decrement),
-											_1: {ctor: '[]'}
-										}
-									},
-									{
-										ctor: '::',
-										_0: _elm_lang$html$Html$text('Decrement'),
-										_1: {ctor: '[]'}
-									}),
-								_1: {
-									ctor: '::',
-									_0: A2(
-										_elm_lang$html$Html$button,
-										{
-											ctor: '::',
-											_0: _elm_lang$html$Html_Attributes$class('reset'),
-											_1: {
-												ctor: '::',
-												_0: _elm_lang$html$Html_Events$onClick(_user$project$Main$Reset),
-												_1: {ctor: '[]'}
-											}
-										},
-										{
-											ctor: '::',
-											_0: _elm_lang$html$Html$text('Reset Counter'),
-											_1: {ctor: '[]'}
-										}),
-									_1: {ctor: '[]'}
-								}
-							}
 						}),
 					_1: {ctor: '[]'}
 				}
@@ -484,28 +157,34 @@ var _user$project$Main$buttonDisplay = function (model) {
 var _user$project$Main$view = function (model) {
 	return A2(
 		_elm_lang$html$Html$div,
-		{ctor: '[]'},
 		{
 			ctor: '::',
-			_0: _user$project$Main$buttonDisplay(model),
+			_0: _elm_lang$html$Html_Attributes$class('scoreboard'),
+			_1: {ctor: '[]'}
+		},
+		{
+			ctor: '::',
+			_0: A2(
+				_elm_lang$html$Html$h1,
+				{ctor: '[]'},
+				{
+					ctor: '::',
+					_0: _elm_lang$html$Html$text('Score Keeper'),
+					_1: {ctor: '[]'}
+				}),
 			_1: {
 				ctor: '::',
-				_0: _user$project$Main$trickyInput(model),
-				_1: {
-					ctor: '::',
-					_0: _user$project$Main$formDisplay,
-					_1: {
-						ctor: '::',
-						_0: _user$project$Main$formVerification(model),
-						_1: {
-							ctor: '::',
-							_0: _user$project$Main$diceRoller(model),
-							_1: {ctor: '[]'}
-						}
-					}
-				}
+				_0: _user$project$Main$playerForm(model),
+				_1: {ctor: '[]'}
 			}
 		});
 };
-var _user$project$Main$main = _elm_lang$html$Html$program(
-	{init: _user$project$Main$init, view: _user$project$Main$view, update: _user$project$Main$update, subscriptions: _user$project$Main$subscriptions})();
+var _user$project$Main$main = _elm_lang$html$Html$beginnerProgram(
+	{model: _user$project$Main$initModel, view: _user$project$Main$view, update: _user$project$Main$update})();
+var _user$project$Main$Score = F2(
+	function (a, b) {
+		return {ctor: 'Score', _0: a, _1: b};
+	});
+var _user$project$Main$Edit = function (a) {
+	return {ctor: 'Edit', _0: a};
+};
